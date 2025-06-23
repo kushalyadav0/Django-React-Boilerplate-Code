@@ -1,10 +1,14 @@
+
 from django.shortcuts import render
-from rest_framework.permissions import AllowAny  
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, renderer_classes, permission_classes
 from rest_framework.response import Response
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer
+from rest_framework import permissions
 
 # Create your views here.
-@AllowAny
-@api_view(['GET'])
+@api_view(('GET',))
+@permission_classes((permissions.AllowAny))
+@renderer_classes((TemplateHTMLRenderer, JSONRenderer))
 def hello_world(request):
-    return Response({"message": "Hello from Django!"})
+    permission_classes = [permissions.IsAuthenticated]
+    return Response({"msg": "Hello from Django!"})

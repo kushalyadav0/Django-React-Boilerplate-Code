@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'core_app',
     'rest_framework',
     'corsheaders',
+    'django_browser_reload',
 
 ]
 
@@ -48,7 +50,9 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.renderers.TemplateHTMLRenderer',
     ]
 }
 
@@ -61,11 +65,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:8000",
+    "http://localhost:5173",
 ]
 
 ROOT_URLCONF = 'project.urls'
